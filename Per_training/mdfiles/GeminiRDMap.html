@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #4CAF50;
+            --secondary-color: #f57c00;
+            --border-color: #333;
+            --progress-bg: #3a3a3a;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        h1,
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .profile-section p {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: var(--progress-bg);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease-in-out;
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        .roadmap {
+            padding-top: 1rem;
+            position: relative;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--border-color);
+            transform: translateX(-50%);
+        }
+
+        .month-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .month-card::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .month-card:nth-child(odd) {
+            margin-left: 50%;
+            border-left: 2px solid var(--primary-color);
+            padding-left: 2.5rem;
+        }
+
+        .month-card:nth-child(odd)::before {
+            left: -11px;
+        }
+
+        .month-card:nth-child(even) {
+            margin-right: 50%;
+            text-align: right;
+            border-right: 2px solid var(--primary-color);
+            padding-right: 2.5rem;
+        }
+
+        .month-card:nth-child(even)::before {
+            right: -11px;
+        }
+
+        .goal {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            cursor: pointer;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✔';
+            color: var(--bg-color);
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checked-text {
+            color: #888;
+            text-decoration: line-through;
+            transition: all 0.3s ease;
+        }
+
+        .profile-container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-section h2 {
+            text-align: center;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .profile-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        .profile-item::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .roadmap::before {
+                left: 10px;
+                transform: none;
+            }
+
+            .month-card {
+                margin-left: 20px;
+                margin-right: 0;
+                padding-left: 2.5rem;
+                text-align: left;
+                border-left: 2px solid var(--primary-color);
+                border-right: none;
+            }
+
+            .month-card::before {
+                left: 0;
+                top: 20px;
+                transform: translateY(0);
+            }
+
+            .month-card:nth-child(even) {
+                margin-left: 20px;
+                padding-right: 1.5rem;
+                text-align: left;
+                border-right: none;
+            }
+
+            .month-card:nth-child(even)::before {
+                right: auto;
+                left: -11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+
+
+        <div class="profile-container">
+
+            <p>Companies pay this for developers who show:</p>
+            <div class="profile-items">
+                <div class="profile-item">
+                    Mastery of Fundamentals: Exceptional problem-solving (DSA) and system design skills.
+                </div>
+                <div class="profile-item">
+                    Production-Grade Mindset: Knowledge of testing, monitoring, CI/CD, and cloud design.
+                </div>
+                <div class="profile-item">
+                    Ability to Handle Scale: Understanding of performance, caching, and distributed systems
+                    complexities.
+                </div>
+                <div class="profile-item">
+                    Initiative & Impact: Demonstrated through a complex, well-architected, and deployed portfolio
+                    project.
+                </div>
+            </div>
+        </div>
+
+        <div class="roadmap" id="roadmap">
+            <div class="month-card" data-month="1">
+                <h3 class="goal">Month 1: Java Virtuosity & Algorithmic Thinking</h3>
+                <p><strong>Goal:</strong> Java isn't just a language; it's your tool. Wield it masterfully.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="1-1">Java 17+: Master not just
+                            features, but the why. Records, Sealed Classes, new GCs (ZGC, Shenandoah).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="1-2">Concurrency Deep Dive:
+                            CompletableFuture for non-blocking calls, ForkJoinPool, ReentrantLock, Atomic classes.
+                            Understand the Java Memory Model (JMM).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="1-3">JVM Internals (Basics):
+                            ClassLoaders, Garbage Collection algorithms, JVM flags (-Xms, -Xmx), how to profile a simple
+                            app.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="1-4">LeetCode: 1 problem daily. Focus
+                            on writing efficient, production-quality code, not just solving it.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="2">
+                <h3 class="goal">Month 2: Spring Boot - Beyond the Basics</h3>
+                <p><strong>Goal:</strong> Understand the magic behind Spring. Don't just use it, master it.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="2-1">How Spring Works: Understand the
+                            Application Context, Bean lifecycle, @Conditional annotations, AOP (Aspect-Oriented
+                            Programming).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="2-2">Customizations: Write custom
+                            @Annotation, create a BeanPostProcessor, configure a custom HealthIndicator.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="2-3">Testing: JUnit 5 with Mockito.
+                            Aim for >80% test coverage on all your projects. Learn @MockBean, @DataJpaTest,
+                            @WebMvcTest.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="2-4">LeetCode: Ramp up to 2-3
+                            problems on weekends. Start a notebook for patterns.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="3">
+                <h3 class="goal">Month 3: Microservices Architecture & Design Patterns</h3>
+                <p><strong>Goal:</strong> Build not just services, but a robust, resilient system.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="3-1">Communication (Synchronous):
+                            Master OpenFeign with custom encoders/decoders and error handling.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="3-2">Communication (Asynchronous):
+                            Kafka is mandatory. Understand consumer groups, partitions, exactly-once delivery, schema
+                            evolution with Avro.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="3-3">Resilience Patterns: Implement
+                            Circuit Breaker, Retry, Bulkhead, Rate Limiter using Resilience4j. Understand the scenarios
+                            for each.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="3-4">Distributed Tracing: Implement
+                            Sleuth + Zipkin. Log aggregation is key (e.g., with the ELK stack or Grafana Loki).</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="4">
+                <h3 class="goal">Month 4: Database Mastery & Performance</h3>
+                <p><strong>Goal:</strong> Data is the heart of the system. Design it for scale.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="4-1">SQL (PostgreSQL): Advanced
+                            topics: Indexing (B-Tree, GIN, GiST), Query Optimization (EXPLAIN ANALYZE), Connection
+                            Pooling (HikariCP), Transactions isolation levels.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="4-2">NoSQL: MongoDB (data modeling,
+                            aggregation pipeline) and Redis (not just caching, but Redis as a data structure server for
+                            leaderboards, session storage).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="4-3">CQRS Pattern: Implement a simple
+                            read/write separation pattern in your project. This is a huge talking point.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="5">
+                <h3 class="goal">Month 5: Cloud-Native Development & DevOps Lite (The Game Changer)</h3>
+                <p><strong>Goal:</strong> Show you can build and deploy software the modern way.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="5-1">Docker: Write optimized,
+                            multi-stage Dockerfiles to create small, secure images.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="5-2">Kubernetes (K8s) - Basics: This
+                            is what separates 10 LPA from 20 LPA. Understand Pods, Deployments, Services, Ingress.
+                            Deploy your project to a local Minikube cluster.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="5-3">AWS/GCP/Azure: Pick one. For
+                            AWS: EC2, ECR, EKS (managed Kubernetes), RDS, ElastiCache (Redis), S3. Deploy your project
+                            using EKS.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="5-4">CI/CD Pipeline: Build a basic
+                            GitHub Actions pipeline to: 1) Test your code on push, 2) Build a Docker image, 3) Push it
+                            to ECR.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="6">
+                <h3 class="goal">Month 6: The "20 LPA" Portfolio Project</h3>
+                <p><strong>Goal:</strong> Build a system that screams "I am a senior engineer."</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-1">Project Idea: "Real-time
+                            Analytics Dashboard" or "Distributed Notification System".</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-2">Architecture: 5-6
+                            microservices.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-3">Tech Stack Must Include: Spring
+                            Boot, Kafka, Redis, PostgreSQL, MongoDB.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-4">Kubernetes (on AWS EKS or GCP
+                            GKE).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-5">CI/CD via GitHub Actions/GitLab
+                            CI.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-6">Monitoring: Prometheus + Grafana
+                            for custom metrics (e.g., track API latency, error rates).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="6-7">Frontend (Optional but
+                            impressive): A simple React/Vue.js dashboard to display data from your API.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="7">
+                <h3 class="goal">Month 7: Advanced DSA & System Design</h3>
+                <p><strong>Goal:</strong> Ace the coding and design rounds.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="7-1">DSA: Grind LeetCode. Target: 50+
+                            Easy, 100+ Medium, 20+ Hard problems. Focus on problem patterns (Sliding Window, Two
+                            Pointers, BFS/DFS, Dynamic Programming).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="7-2">System Design: Practice
+                            designing systems you use: YouTube, Uber, Swiggy/Zomato, Netflix.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="7-3">Learn: How to calculate rough
+                            capacity estimation (QPS, storage).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="7-4">Draw: Diagrams on Excalidraw or
+                            Miro. Discuss trade-offs (SQL vs. NoSQL, consistency vs. availability).</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="7-5">Mention: How you'd use caching
+                            (Redis), messaging (Kafka), and scaling (K8s) in your design.</label></li>
+                </ul>
+            </div>
+
+            <div class="month-card" data-month="8">
+                <h3 class="goal">Month 8: Interview Mastery & Negotiation</h3>
+                <p><strong>Goal:</strong> Convert your skills into a life-changing offer.</p>
+                <ul>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-1">Behavioral Prep: Prepare deep
+                            stories. Use the STAR method. Have answers for: "Most challenging bug," "Disagreement with a
+                            manager," "How do you learn new tech?"</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-2">Resume: Your resume should be a
+                            highlight reel of your project. Use metrics: "Improved API response time by 60% using Redis
+                            caching," "Reduced cloud costs by 20% by optimizing Docker images."</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-3">Mock Interviews: Give at least
+                            5-10 mocks with friends or on platforms like Pramp.</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-4">Negotiation (DO NOT disclose
+                            current CTC): Simply say, "I am seeking compensation aligned with the market rate for my
+                            skills, which is in the range of 18-22 LPA."</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-5">Negotiation (When asked): say:
+                            "My current focus is on finding the right challenging role. I'm sure we can agree on a
+                            number that reflects the value I bring once we determine it's a mutual fit."</label></li>
+                    <li class="action-item"><label><input type="checkbox" data-id="8-6">Get multiple offers. This is
+                            your biggest leverage.</label></li>
+                </ul>
+            </div>
+
+        </div>
+        <p style="text-align: center; font-size: 1.1rem; color: #888; margin-top: 3rem;">By following this intense plan,
+            you won't just be another candidate; you'll be the candidate who understands how to build, deploy, and scale
+            robust systems. This depth of knowledge is exactly what commands a 20 LPA package, and it will make a 10-14
+            LPA offer a comfortable fallback. You can do this.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressBar = document.getElementById('progressBar');
+            const totalTasks = checkboxes.length;
+
+            // Function to save progress to local storage
+            const saveProgress = () => {
+                const progress = {};
+                checkboxes.forEach(checkbox => {
+                    progress[checkbox.dataset.id] = checkbox.checked;
+                });
+                localStorage.setItem('roadmapProgress', JSON.stringify(progress));
+            };
+
+            // Function to load progress from local storage
+            const loadProgress = () => {
+                const savedProgress = JSON.parse(localStorage.getItem('roadmapProgress'));
+                if (savedProgress) {
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = savedProgress[checkbox.dataset.id] || false;
+                        updateTaskStyle(checkbox);
+                    });
+                }
+            };
+
+            // Function to update the progress bar and task styles
+            const updateProgress = () => {
+                const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                const progressPercentage = (checkedCount / totalTasks) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.textContent = `${Math.round(progressPercentage)}%`;
+            };
+
+            // Function to apply styling to the checked task
+            const updateTaskStyle = (checkbox) => {
+                const label = checkbox.closest('label');
+                if (label) {
+                    if (checkbox.checked) {
+                        label.classList.add('checked-text');
+                    } else {
+                        label.classList.remove('checked-text');
+                    }
+                }
+            };
+
+            // Event listener for each checkbox
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    updateTaskStyle(e.target);
+                    updateProgress();
+                    saveProgress();
+                });
+            });
+
+            // Initial load of progress and update of all elements
+            loadProgress();
+            updateProgress();
+        });
+    </script>
+
+</body>
+
+</html>

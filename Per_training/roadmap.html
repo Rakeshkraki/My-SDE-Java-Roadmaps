@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>8-Month Roadmap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .month {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .month h3 {
+      margin-top: 0;
+      cursor: pointer;
+    }
+
+    .goal {
+      background: #e0f7fa;
+      padding: 10px;
+      border-left: 4px solid #00796b;
+      margin: 10px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-right: 10px;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #4caf50;
+      width: 0;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .collapsible {
+      cursor: pointer;
+      background: #00796b;
+      color: white;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 8-Month Roadmap SDE(Java Spring Boot Microservices)</h1>
+  <h2>Track your progress and become a top-tier developer</h2>
+  <div id="roadmap"></div>
+
+  <script>
+    const roadmapData = [
+      {
+        month: "Month 1: Java Virtuosity & Algorithmic Thinking",
+        goal: "Java isn't just a language; it's your tool. Wield it masterfully.",
+        tasks: [
+            "Master Java 17+ features (Records, Sealed Classes, Text Blocks, Pattern Matching, Enhanced Switch)",
+            "Understand Local Variable Type Inference (var) and NullPointerException diagnostics",
+            "Practice Streams API & Optional for clean code (Collectors, Parallel Streams, Chaining)",
+            "Master Lambdas and Method References",
+            "Learn CompletableFuture (chaining, exception handling, combining futures)",
+            "Study ForkJoinPool with RecursiveTask/RecursiveAction",
+            "Understand ReentrantLock, Conditions, and deadlock prevention",
+            "Master Atomic classes (AtomicInteger, AtomicReference, CAS operations)",
+            "Explore Virtual Threads (Java 21 preview)",
+            "Solve 20+ LeetCode Easy problems (arrays, strings, hashmaps, recursion)",
+            "Learn and apply Big O complexity analysis"
+        ]
+      },
+      {
+        month: "Month 2: Spring Boot - Beyond the Basics",
+        goal: "Understand the magic behind Spring. Don't just use it, master it.",
+        tasks: [
+           "Understand ApplicationContext, Bean Lifecycle, and Dependency Injection",
+            "Explore Spring Boot Auto-Configuration & Conditional Beans",
+            "Learn AOP (logging, security, performance metrics)",
+            "Write custom annotations with retention and targets",
+            "Implement BeanPostProcessor & BeanFactoryPostProcessor",
+            "Use Lombok effectively with Spring",
+            "Master Spring Profiles for environment configuration",
+            "Write unit tests with JUnit 5, assertions, parameterized tests",
+            "Mock with Mockito and use BDD style testing",
+            "Achieve >80% code coverage and test edge cases"
+        ]
+      },
+      {
+        month: "Month 3: Microservices Architecture & Design Patterns",
+        goal: "Build robust, resilient systems, not just services.",
+        tasks: [
+          "Understand microservices principles: decomposition, API contracts, service boundaries",
+            "Master OpenFeign with interceptors, error decoders, retry logic",
+            "Implement Kafka producers/consumers with proper configs",
+            "Learn Avro schema management and evolution",
+            "Use Schema Registry effectively",
+            "Apply Circuit Breaker, Rate Limiter with Resilience4j",
+            "Use Retry and Bulkhead patterns",
+            "Set up distributed tracing with Spring Cloud Sleuth + Zipkin",
+            "Configure Spring Cloud Config Server for dynamic configs",
+            "Secure services with Spring Security and OAuth2"
+        ]
+      },
+      {
+        month: "Month 4: Database Mastery & Performance",
+        goal: "Data is the heart of the system. Design it for scale.",
+        tasks: [
+         "Advanced PostgreSQL (indexes, CTEs, window functions, materialized views)",
+            "Practice performance tuning using EXPLAIN ANALYZE",
+            "Understand isolation levels and transaction management",
+            "MongoDB data modeling best practices (embedding vs referencing)",
+            "Use Redis for caching, pub-sub, session and leaderboard",
+            "Integrate Redis with Spring using RedisTemplate",
+            "Explore CQRS pattern with separate read/write models",
+            "Understand Event Sourcing fundamentals",
+            "Use Flyway/Liquibase for DB version control",
+            "Write integration tests with Testcontainers"
+        ]
+      },
+      {
+        month: "Month 5: Cloud-Native Development & DevOps",
+        goal: "Show you can build and deploy software the modern way.",
+        tasks: [
+           "Write efficient multi-stage Dockerfiles for Spring Boot apps",
+            "Understand Docker networking, volumes, health checks",
+            "Deploy containers to Minikube and explore kubectl basics",
+            "Learn Kubernetes concepts: Pods, Deployments, Services, ConfigMaps, Secrets",
+            "Use Helm for managing Kubernetes apps",
+            "Explore AWS EC2, ECR, EKS, RDS basics",
+            "Implement CI/CD pipeline using GitHub Actions (build, test, deploy)",
+            "Use Docker Compose for local orchestration",
+            "Set up K8s Ingress and autoscaling",
+            "Monitor K8s pods with Lens and kubectl top"
+        ]
+      },
+      {
+        month: "Month 6: The '20 LPA' Portfolio Project",
+        goal: "Build a system that screams 'I am a senior engineer.'",
+        tasks: [
+           "Build 5-6 microservices using Spring Boot, Kafka, Redis, PostgreSQL",
+            "Implement OpenAPI documentation with Swagger",
+            "Secure APIs using Spring Security (JWT/OAuth2)",
+            "Enable distributed tracing and centralized logging (ELK or Sleuth+Zipkin)",
+            "Use Docker Compose for local dev and AWS EKS for production",
+            "Ensure end-to-end CI/CD using GitHub Actions",
+            "Configure monitoring with Prometheus and Grafana",
+            "Write README, diagrams, and documentation",
+            "Conduct performance/load testing using JMeter or Gatling",
+            "Deploy and test rollback & blue-green strategies"
+        ]
+      },
+      {
+        month: "Month 7: Advanced DSA & System Design",
+        goal: "Ace the coding and design interviews.",
+        tasks: [
+            "Solve 50+ Easy LeetCode problems",
+            "Solve 100+ Medium and 20+ Hard LeetCode problems",
+            "Focus on patterns: sliding window, DP, graph traversal, recursion",
+            "Learn Trie, Union-Find, Segment Tree, Heap",
+            "Understand distributed systems design trade-offs (CAP, consistency models)",
+            "Design YouTube/Uber/WhatsApp-like systems (API + Infra)",
+            "Practice Low-Level Design: class diagrams, design patterns",
+            "Learn Capacity Planning (QPS, storage, scaling models)",
+            "Review key concepts: caching, sharding, replication, load balancing"
+        ]
+      },
+      {
+        month: "Month 8: Interview Mastery & Negotiation",
+        goal: "Convert your skills into a life-changing offer.",
+        tasks: [
+          "Craft 5-6 STAR stories from your real-life experience",
+            "Tailor your resume using metrics (impact-driven)",
+            "Update LinkedIn with keywords and endorsements",
+            "Practice mock interviews on Pramp or with peers",
+            "Build a brag document (achievements and scope)",
+            "Prepare answers for behavioral and technical deep-dives",
+            "Study offer structures (CTC, base, bonus, equity)",
+            "Practice salary negotiation using scripts and counters",
+            "Apply to 50+ companies (startups + MNCs)",
+            "Track applications and follow up professionally"
+        ]
+      }
+    ];
+
+    const container = document.getElementById("roadmap");
+
+    roadmapData.forEach((item, monthIndex) => {
+      const monthDiv = document.createElement("div");
+      monthDiv.className = "month";
+
+      const button = document.createElement("button");
+      button.className = "collapsible";
+      button.textContent = item.month;
+      button.onclick = () => {
+        contentDiv.style.display =
+          contentDiv.style.display === "block" ? "none" : "block";
+      };
+
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "content";
+
+      const goal = document.createElement("div");
+      goal.className = "goal";
+      goal.textContent = "🎯 " + item.goal;
+
+      const ul = document.createElement("ul");
+      let completedCount = 0;
+
+      item.tasks.forEach((task, taskIndex) => {
+        const li = document.createElement("li");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        const key = `month-${monthIndex}-task-${taskIndex}`;
+        checkbox.checked = localStorage.getItem(key) === "true";
+        if (checkbox.checked) li.classList.add("completed");
+
+        checkbox.onchange = () => {
+          localStorage.setItem(key, checkbox.checked);
+          li.classList.toggle("completed");
+          updateProgress();
+        };
+
+        li.appendChild(checkbox);
+        li.append(task);
+        ul.appendChild(li);
+      });
+
+      const progressBar = document.createElement("div");
+      progressBar.className = "progress-bar";
+
+      const progressFill = document.createElement("div");
+      progressFill.className = "progress-fill";
+
+      progressBar.appendChild(progressFill);
+
+      contentDiv.appendChild(goal);
+      contentDiv.appendChild(progressBar);
+      contentDiv.appendChild(ul);
+
+      monthDiv.appendChild(button);
+      monthDiv.appendChild(contentDiv);
+      container.appendChild(monthDiv);
+    });
+
+    function updateProgress() {
+      document.querySelectorAll(".month").forEach((month, index) => {
+        const checkboxes = month.querySelectorAll("input[type='checkbox']");
+        const checked = [...checkboxes].filter(cb => cb.checked).length;
+        const fill = month.querySelector(".progress-fill");
+        const percent = Math.round((checked / checkboxes.length) * 100);
+        fill.style.width = percent + "%";
+      });
+    }
+
+    updateProgress();
+  </script>
+</body>
+</html>

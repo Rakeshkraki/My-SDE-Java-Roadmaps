@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>8-Month Roadmap — Interactive Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1221;
+      --panel: #151935;
+      --panel-2: #1b2046;
+      --accent: #7c5cff;
+      --accent-2: #06d6a0;
+      --muted: #99a1c2;
+      --text: #eef2ff;
+      --danger: #ff6b6b;
+      --warning: #ffd166;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+      background: radial-gradient(1200px 800px at 10% -10%, #1f2659 0%, #0f1221 50%, #0b0e1b 100%);
+      color: var(--text)
+    }
+
+    a {
+      color: var(--accent)
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 24px
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 16px
+    }
+
+    .title {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: 0.3px
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+      border: 1px solid rgba(255, 255, 255, .06);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      border-radius: 16px
+    }
+
+    .panel {
+      padding: 16px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 16px
+    }
+
+    @media(max-width:960px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .side {
+      position: sticky;
+      top: 16px;
+      height: fit-content
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px
+    }
+
+    input[type="date"],
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      background: #0d1026;
+      border: 1px solid rgba(255, 255, 255, .08);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent)
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .05s ease, opacity .2s
+    }
+
+    .btn:hover {
+      opacity: .95
+    }
+
+    .btn:active {
+      transform: translateY(1px)
+    }
+
+    .btn.ghost {
+      background: #0d1026;
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: var(--text)
+    }
+
+    .btn.good {
+      background: var(--accent-2);
+      color: #001b12
+    }
+
+    .btn.bad {
+      background: var(--danger)
+    }
+
+    .info {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .months {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px
+    }
+
+    details.road {
+      position: relative
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    summary::-webkit-details-marker {
+      display: none
+    }
+
+    .m-title {
+      font-weight: 800
+    }
+
+    .m-date {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .progress {
+      height: 10px;
+      background: #0b0f20;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    .bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #5ff4d1);
+      width: 0%
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .list {
+      padding: 12px 16px 16px 16px
+    }
+
+    .task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .06);
+      margin-bottom: 8px
+    }
+
+    .task.dragging {
+      opacity: .6;
+      outline: 2px dashed var(--accent)
+    }
+
+    .task .meta {
+      flex: 1
+    }
+
+    .task .meta .title {
+      font-weight: 700
+    }
+
+    .task .meta .desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px
+    }
+
+    .task .right {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .tag {
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: var(--muted)
+    }
+
+    .goal-input {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, .06);
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 12px
+    }
+
+    .kbd {
+      border: 1px solid rgba(255, 255, 255, .2);
+      padding: .5px 6px;
+      border-radius: 6px;
+      background: #0b0f20;
+      font-size: 11px;
+      color: #b8c0ff
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 12px
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px
+    }
+
+    @media(max-width:720px) {
+      .kpi {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .kpi .box {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .box .big {
+      font-size: 24px;
+      font-weight: 800
+    }
+
+    .search {
+      display: flex;
+      gap: 8px
+    }
+
+    .legend {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .legend span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px
+    }
+
+    .legend .l1 {
+      background: var(--accent)
+    }
+
+    .legend .l2 {
+      background: var(--accent-2)
+    }
+
+    .danger {
+      color: var(--danger)
+    }
+
+    .warning {
+      color: var(--warning)
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .timer {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .timer .clock {
+      font-variant-numeric: tabular-nums;
+      font-size: 22px;
+      font-weight: 800
+    }
+
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px
+    }
+
+    @media(max-width:960px) {
+      .kanban {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .column {
+      border: 1px dashed rgba(255, 255, 255, .12);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(255, 255, 255, .03)
+    }
+
+    .column h4 {
+      margin: 6px 4px 8px 4px
+    }
+
+    .cardlet {
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .06);
+      margin-bottom: 8px;
+      cursor: grab
+    }
+
+    .hidden {
+      display: none
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="header">
+      <div>
+        <div class="title">The Intense 8‑Month Roadmap to <span style="color:var(--accent-2)">20 LPA</span></div>
+        <div class="sub">Interactive planner with progress tracking, personal goals, Pomodoro, export/import, and a mini
+          Kanban.</div>
+      </div>
+      <div class="toolbar">
+        <button class="btn good" id="exportBtn" title="Download your progress as JSON">Export</button>
+        <label for="importFile" class="btn ghost" style="cursor:pointer">Import<input id="importFile" type="file"
+            accept="application/json" style="display:none"></label>
+        <button class="btn bad" id="resetBtn" title="Clear local data">Reset</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <aside class="side card panel">
+        <div style="display:flex; gap:10px; align-items:flex-end; margin-bottom:10px">
+          <div style="flex:1">
+            <label>Start Date</label>
+            <input type="date" id="startDate" />
+          </div>
+          <div style="flex:1">
+            <label>Target End</label>
+            <input type="text" id="endDate" readonly>
+          </div>
+        </div>
+
+        <div class="kpi" style="margin:10px 0">
+          <div class="box">
+            <div class="small">Overall Progress</div>
+            <div class="big" id="overallPct">0%</div>
+          </div>
+          <div class="box">
+            <div class="small">Tasks Done</div>
+            <div class="big" id="doneCount">0</div>
+          </div>
+          <div class="box">
+            <div class="small">Open Tasks</div>
+            <div class="big" id="openCount">0</div>
+          </div>
+          <div class="box">
+            <div class="small">LeetCode Solved</div>
+            <div class="big" id="leetTotal">0</div>
+          </div>
+        </div>
+
+        <div class="card panel" style="margin-bottom:12px">
+          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-weight:800">Focus Tools</div>
+              <div class="small">Pomodoro + Quick Notes</div>
+            </div>
+            <div class="legend"><span class="l1"></span> Planned <span class="l2"></span> Personal</div>
+          </div>
+          <div class="timer" style="margin:10px 0">
+            <span class="clock" id="clock">25:00</span>
+            <button class="btn" id="startPom">Start</button>
+            <button class="btn ghost" id="pausePom">Pause</button>
+            <button class="btn ghost" id="resetPom">Reset</button>
+          </div>
+          <div style="display:flex;gap:8px">
+            <input id="quickNote" type="text" placeholder="Jot a note (press Enter)...">
+            <button id="clearNotes" class="btn ghost">Clear</button>
+          </div>
+          <div id="notesList" style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap"></div>
+        </div>
+
+        <div class="card panel">
+          <div style="font-weight:800; margin-bottom:6px">Filters</div>
+          <div class="search" style="margin-bottom:8px">
+            <input type="text" id="searchBox" placeholder="Search task text..." />
+            <select id="statusFilter">
+              <option value="all">All</option>
+              <option value="open">Open</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div class="footer-note">Tip: Use <span class="kbd">/</span> to focus search. Drag tasks to reorder.
+            Toggle with <span class="kbd">Space</span> when focused.</div>
+        </div>
+      </aside>
+
+      <main>
+        <!-- MONTHS CONTAINER -->
+        <div id="months" class="months"></div>
+
+        <!-- PORTFOLIO KANBAN (Month 6) -->
+        <div class="card panel" style="margin-top:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div>
+              <div style="font-weight:800">Month 6 — Portfolio Project: Mini Kanban</div>
+              <div class="small">Move cards across columns. Persisted in localStorage.</div>
+            </div>
+            <button class="btn ghost" id="addKanban">+ Add Card</button>
+          </div>
+          <div class="kanban" id="kanban">
+            <div class="column" data-col="todo">
+              <h4>Todo</h4>
+              <div class="colwrap"></div>
+            </div>
+            <div class="column" data-col="doing">
+              <h4>In Progress</h4>
+              <div class="colwrap"></div>
+            </div>
+            <div class="column" data-col="done">
+              <h4>Done</h4>
+              <div class="colwrap"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">All data is stored locally in your browser (no servers). Use Export/Import to back up
+          or move devices.</div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // ====== DATA ======
+    const ROADMAP = [
+      {
+        id: "m1", title: "Month 1: Java Virtuosity & Algorithmic Thinking", goal: "Java isn't just a language; it's your tool. Wield it masterfully.", tasks: [
+          t("Java 17+ deep dive: records, sealed classes, ZGC, Shenandoah; learn the 'why' behind features", 'Planned', 2),
+          t("Concurrency: CompletableFuture, ForkJoinPool, ReentrantLock, Atomics; read JMM essentials", 'Planned', 3),
+          t("JVM internals basics: ClassLoaders, GC algorithms, -Xms/-Xmx; profile a sample app", 'Planned', 2),
+          t("LeetCode: 1 problem daily; write clean, efficient solutions", 'Planned', 3, { leet: true, target: 30 })
+        ]
+      },
+      {
+        id: "m2", title: "Month 2: Spring Boot — Beyond the Basics", goal: "Understand the magic behind Spring. Don't just use it, master it.", tasks: [
+          t("ApplicationContext, Bean lifecycle, @Conditional, AOP: build tiny demos for each", 'Planned', 2),
+          t("Customizations: custom @Annotation, BeanPostProcessor, custom HealthIndicator", 'Planned', 2),
+          t("Testing: JUnit5 + Mockito; >80% coverage; use @MockBean, @DataJpaTest, @WebMvcTest", 'Planned', 2),
+          t("LeetCode: ramp up on weekends; pattern notebook", 'Planned', 1, { leet: true, target: 10 })
+        ]
+      },
+      {
+        id: "m3", title: "Month 3: Microservices Architecture & Design Patterns", goal: "Build not just services, but a robust, resilient system.", tasks: [
+          t("Sync comms: OpenFeign with custom encoders/decoders + error handling", 'Planned', 2),
+          t("Async comms: Kafka: consumer groups, partitions, exactly-once, Avro schema evolution", 'Planned', 3),
+          t("Resilience4j: Circuit breaker, Retry, Bulkhead, Rate limiter — implement and compare", 'Planned', 3),
+          t("Distributed tracing: Sleuth + Zipkin; central log aggregation (ELK/Loki)", 'Planned', 2)
+        ]
+      },
+      {
+        id: "m4", title: "Month 4: Database Mastery & Performance", goal: "Data is the heart of the system. Design it for scale.", tasks: [
+          t("PostgreSQL: indexes (B-Tree, GIN, GiST), EXPLAIN ANALYZE, HikariCP, isolation levels", 'Planned', 3),
+          t("NoSQL: MongoDB modeling + aggregation; Redis as data-structure server (sessions, leaderboard)", 'Planned', 3),
+          t("Implement CQRS: read/write separation in your project", 'Planned', 3)
+        ]
+      },
+      {
+        id: "m5", title: "Month 5: Cloud-Native & DevOps Lite", goal: "Show you can build and deploy software the modern way.", tasks: [
+          t("Docker: multi-stage, optimized secure images", 'Planned', 2),
+          t("Kubernetes: Pods, Deployments, Services, Ingress; ship to Minikube", 'Planned', 3),
+          t("AWS path: EC2/ECR/EKS/RDS/ElastiCache/S3; deploy on EKS", 'Planned', 3),
+          t("CI/CD: GitHub Actions — test, build Docker, push to ECR", 'Planned', 2)
+        ]
+      },
+      {
+        id: "m6", title: "Month 6: The \"20 LPA\" Portfolio Project", goal: "Build a system that screams 'I am a senior engineer.'", tasks: [
+          t("Pick idea: Real-time Analytics Dashboard OR Distributed Notification System", 'Planned', 1),
+          t("Architecture: 5–6 microservices (Spring), Kafka, Redis, PostgreSQL, MongoDB", 'Planned', 3),
+          t("Infra: Kubernetes (EKS/GKE), CI/CD (GitHub Actions/GitLab CI)", 'Planned', 2),
+          t("Monitoring: Prometheus + Grafana (latency, error rates, custom metrics)", 'Planned', 2),
+          t("Optional frontend: React/Vue dashboard to visualize data", 'Planned', 1)
+        ]
+      },
+      {
+        id: "m7", title: "Month 7: Advanced DSA & System Design", goal: "Ace the coding and design rounds.", tasks: [
+          t("DSA grind: 50E/100M/20H; focus on patterns (SW, 2 pointers, BFS/DFS, DP)", 'Planned', 4, { leet: true, target: 170 }),
+          t("System design practice: YouTube, Uber, Swiggy/Zomato, Netflix; capacity estimates", 'Planned', 3),
+          t("Draw diagrams (Excalidraw/Miro); articulate trade-offs (SQL/NoSQL, consistency/availability)", 'Planned', 2)
+        ]
+      },
+      {
+        id: "m8", title: "Month 8: Interview Mastery & Negotiation", goal: "Convert your skills into a life‑changing offer.", tasks: [
+          t("Behavioral prep: STAR stories — hardest bug, conflict, learning new tech", 'Planned', 1),
+          t("Resume: highlight metrics (e.g., -60% latency via Redis, -20% cloud costs via Docker)", 'Planned', 1),
+          t("Mocks: 5–10 interviews (friends/Pramp)", 'Planned', 1),
+          t("Negotiation drill: keep CTC private; align to 18–22 LPA range", 'Planned', 1)
+        ]
+      }
+    ];
+    function t(text, tag = 'Planned', effort = 1, extra = {}) { return { id: crypto.randomUUID(), text, done: false, tag, effort, notes: '', ...extra } };
+
+    // ====== STATE ======
+    const DEFAULT_STATE = {
+      startDate: new Date().toISOString().slice(0, 10),
+      months: ROADMAP,
+      personal: {}, // {monthId:[{id,text,done,effort}]}
+      leetCounts: {}, // {monthId: number}
+      notes: [],
+      kanban: { todo: [], doing: [], done: [] }
+    };
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem('roadmap20lpa') || 'null') || structuredClone(DEFAULT_STATE); } catch { return structuredClone(DEFAULT_STATE); }
+    }
+    function save() { localStorage.setItem('roadmap20lpa', JSON.stringify(state)); }
+    let state = load();
+
+    // ====== UTIL ======
+    function $(sel, root = document) { return root.querySelector(sel) }
+    function $$(sel, root = document) { return Array.from(root.querySelectorAll(sel)) }
+    function fmtDate(d) { return new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' }) }
+    function addDays(d, days) { const dt = new Date(d); dt.setDate(dt.getDate() + days); return dt }
+    function addMonths(d, n) { const dt = new Date(d); dt.setMonth(dt.getMonth() + n); return dt }
+
+    // ====== RENDER ======
+    const monthsEl = $('#months');
+    function renderAll() {
+      // dates
+      $('#startDate').value = state.startDate;
+      $('#endDate').value = fmtDate(addMonths(state.startDate, 8));
+
+      // notes pills
+      const notesWrap = $('#notesList');
+      notesWrap.innerHTML = '';
+      state.notes.forEach((txt, i) => {
+        const pill = document.createElement('span'); pill.className = 'pill'; pill.textContent = txt; pill.title = 'Click to remove';
+        pill.addEventListener('click', () => { state.notes.splice(i, 1); save(); renderAll(); });
+        notesWrap.appendChild(pill);
+      })
+
+      // months
+      monthsEl.innerHTML = '';
+      state.months.forEach((m, mi) => {
+        const details = document.createElement('details'); details.className = 'road card'; details.open = mi === 0;
+        const sum = document.createElement('summary');
+        const dateSpan = document.createElement('div'); dateSpan.className = 'm-date';
+        const start = addMonths(state.startDate, mi);
+        const end = addMonths(state.startDate, mi + 1);
+        dateSpan.textContent = `${fmtDate(start)} - ${fmtDate(end)}`;
+
+        const mTitle = document.createElement('div'); mTitle.className = 'm-title'; mTitle.textContent = m.title;
+        const wrap = document.createElement('div'); wrap.style.flex = '1'; wrap.appendChild(mTitle); wrap.appendChild(dateSpan);
+
+        const prog = document.createElement('div'); prog.className = 'progress'; const bar = document.createElement('div'); bar.className = 'bar'; prog.appendChild(bar);
+
+        sum.appendChild(wrap); sum.appendChild(prog); details.appendChild(sum);
+
+        const body = document.createElement('div'); body.className = 'list';
+        const goal = document.createElement('div'); goal.innerHTML = `<div class="small" style="margin-bottom:6px">Goal</div><div style="font-weight:700">${m.goal}</div>`;
+        body.appendChild(goal);
+
+        // Personal goals
+        const pTitle = document.createElement('div'); pTitle.style.marginTop = '8px'; pTitle.innerHTML = '<div style="font-weight:700">Your Personal Goals</div><div class="small">Add and drag to reorder</div>'
+        body.appendChild(pTitle);
+
+        const pWrap = document.createElement('div'); pWrap.className = 'pwrap';
+        ; (state.personal[m.id] ||= []).forEach(g => pWrap.appendChild(renderTask(g, m.id, true)));
+        enableDrag(pWrap, m.id, true);
+
+        const gi = document.createElement('div'); gi.className = 'goal-input'; gi.innerHTML = `
+      <input type="text" placeholder="Add a personal goal...">
+      <input type="number" min="1" max="5" value="1" title="Effort (1-5)" style="width:90px">
+      <button class="btn ghost">Add</button>`;
+        gi.querySelector('button').addEventListener('click', () => {
+          const text = gi.querySelector('input[type=text]').value.trim(); const effort = Number(gi.querySelector('input[type=number]').value || 1);
+          if (!text) return; state.personal[m.id].push({ id: crypto.randomUUID(), text, done: false, tag: 'Personal', effort, notes: '' }); save(); renderAll();
+        });
+
+        body.appendChild(pWrap); body.appendChild(gi);
+
+        // Planned tasks
+        const tTitle = document.createElement('div'); tTitle.style.margin = '14px 0 6px'; tTitle.innerHTML = '<div style="font-weight:800">Planned Tasks</div>';
+        const tasksWrap = document.createElement('div'); tasksWrap.className = 'taskswrap';
+        m.tasks.forEach(task => tasksWrap.appendChild(renderTask(task, m.id, false)));
+        enableDrag(tasksWrap, m.id, false);
+
+        body.appendChild(tTitle); body.appendChild(tasksWrap);
+
+        // Leet tracker row
+        const leetRow = document.createElement('div'); leetRow.style.display = 'flex'; leetRow.style.alignItems = 'center'; leetRow.style.gap = '8px'; leetRow.style.marginTop = '8px';
+        leetRow.innerHTML = `<span class="tag">LeetCode tracker</span>
+      <button class="btn ghost" data-action="leet-dec">−</button>
+      <div class="pill" id="leet-${m.id}">${state.leetCounts[m.id] || 0}</div>
+      <button class="btn ghost" data-action="leet-inc">+</button>
+      <span class="small">${leetTargetText(m)}</span>`;
+        leetRow.querySelector('[data-action=leet-inc]').addEventListener('click', () => { state.leetCounts[m.id] = (state.leetCounts[m.id] || 0) + 1; save(); renderAll(); });
+        leetRow.querySelector('[data-action=leet-dec]').addEventListener('click', () => { state.leetCounts[m.id] = Math.max(0, (state.leetCounts[m.id] || 0) - 1); save(); renderAll(); });
+
+        body.appendChild(leetRow);
+
+        // actions row
+        const actions = document.createElement('div'); actions.className = 'actions'; actions.style.marginTop = '10px';
+        const addAllBtn = btn('Mark All Done', () => { [...(state.personal[m.id] || []), ...m.tasks].forEach(t => t.done = true); save(); renderAll(); }, 'good');
+        const clrAllBtn = btn('Clear Done', () => { [...(state.personal[m.id] || []), ...m.tasks].forEach(t => t.done = false); save(); renderAll(); }, 'ghost');
+        actions.appendChild(addAllBtn); actions.appendChild(clrAllBtn);
+
+        body.appendChild(actions)
+        details.appendChild(body);
+
+        // compute progress
+        const allTasks = [...(state.personal[m.id] || []), ...m.tasks];
+        const done = allTasks.filter(t => t.done).length; const total = Math.max(1, allTasks.length);
+        const pct = Math.round(done / total * 100);
+        bar.style.width = pct + '%'; bar.title = pct + "% complete";
+
+        monthsEl.appendChild(details);
+      })
+
+      // Update KPIs
+      const all = state.months.flatMap(m => [...(state.personal[m.id] || []), ...m.tasks]);
+      const doneCount = all.filter(t => t.done).length; const open = all.length - doneCount;
+      const overallPct = Math.round((doneCount / Math.max(1, all.length)) * 100);
+      $('#overallPct').textContent = overallPct + "%";
+      $('#doneCount').textContent = doneCount;
+      $('#openCount').textContent = open;
+      const leetTotal = Object.values(state.leetCounts).reduce((a, b) => a + b, 0);
+      $('#leetTotal').textContent = leetTotal;
+
+      applyFilters();
+      renderKanban();
+    }
+
+    function btn(text, onClick, kind = '') { const b = document.createElement('button'); b.className = 'btn ' + kind; b.textContent = text; b.addEventListener('click', onClick); return b; }
+    function leetTargetText(m) { const withTarget = m.tasks.find(x => x.leet && x.target); return withTarget ? `Target: ${withTarget.target}` : '' }
+
+    function renderTask(task, monthId, isPersonal) {
+      const div = document.createElement('div'); div.className = 'task'; div.draggable = true; div.dataset.id = task.id; div.dataset.month = monthId; div.dataset.personal = isPersonal ? '1' : '0';
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!task.done; cb.addEventListener('change', () => { task.done = cb.checked; save(); renderAll(); });
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const ttl = document.createElement('div'); ttl.className = 'title'; ttl.textContent = task.text;
+      const desc = document.createElement('div'); desc.className = 'desc';
+      desc.innerHTML = `<span class="tag">${task.tag || (isPersonal ? 'Personal' : 'Planned')}</span> <span class="tag">Effort ${task.effort || 1}/5</span>`;
+      const note = document.createElement('textarea'); note.placeholder = 'Notes / links / commands…'; note.value = task.notes || ''; note.addEventListener('input', () => { task.notes = note.value; save(); });
+      meta.appendChild(ttl); meta.appendChild(desc); meta.appendChild(note);
+
+      const right = document.createElement('div'); right.className = 'right';
+      const del = btn('Delete', () => { delTask(monthId, task.id, isPersonal); }, 'ghost');
+      right.appendChild(del);
+
+      div.appendChild(cb); div.appendChild(meta); div.appendChild(right);
+      return div;
+    }
+
+    function delTask(monthId, id, isPersonal) {
+      if (isPersonal) { state.personal[monthId] = (state.personal[monthId] || []).filter(t => t.id !== id); }
+      else {
+        const m = state.months.find(x => x.id === monthId); m.tasks = m.tasks.filter(t => t.id !== id);
+      }
+      save(); renderAll();
+    }
+
+    function enableDrag(container, monthId, isPersonal) {
+      let dragEl = null;
+      container.addEventListener('dragstart', e => {
+        dragEl = e.target.closest('.task'); if (!dragEl) return; dragEl.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      container.addEventListener('dragend', e => { if (dragEl) dragEl.classList.remove('dragging'); dragEl = null; });
+      container.addEventListener('dragover', e => {
+        e.preventDefault();
+        const after = getDragAfterElement(container, e.clientY);
+        const el = $('.task.dragging'); if (!el) return;
+        if (after == null) container.appendChild(el); else container.insertBefore(el, after);
+      });
+      container.addEventListener('drop', () => {
+        // persist new order
+        const ids = $$('.task', container).map(x => x.dataset.id);
+        if (isPersonal) {
+          state.personal[monthId].sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+        } else {
+          const m = state.months.find(x => x.id === monthId);
+          m.tasks.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+        }
+        save(); renderAll();
+      });
+    }
+    function getDragAfterElement(container, y) {
+      const els = [...container.querySelectorAll('.task:not(.dragging)')];
+      return els.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) { return { offset, element: child }; } else return closest;
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    // ====== FILTERS & SEARCH ======
+    function applyFilters() {
+      const q = $('#searchBox').value.toLowerCase().trim();
+      const status = $('#statusFilter').value;
+      $$('.task').forEach(task => {
+        const id = task.dataset.id;
+        const text = $('.title', task).textContent.toLowerCase();
+        const chk = $('input[type=checkbox]', task).checked;
+        const statusOk = status === 'all' || (status === 'open' && !chk) || (status === 'done' && chk);
+        const searchOk = !q || text.includes(q);
+        task.classList.toggle('hidden', !(statusOk && searchOk));
+      })
+    }
+    $('#searchBox').addEventListener('input', applyFilters);
+    $('#statusFilter').addEventListener('change', applyFilters);
+    window.addEventListener('keydown', (e) => { if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); $('#searchBox').focus(); } });
+
+    // ====== DATES ======
+    $('#startDate').addEventListener('change', () => { state.startDate = $('#startDate').value; save(); renderAll(); });
+
+    // ====== EXPORT / IMPORT / RESET ======
+    $('#exportBtn').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'roadmap-20lpa.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+    $('#importFile').addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const fr = new FileReader(); fr.onload = () => { try { state = JSON.parse(fr.result); save(); renderAll(); } catch { alert('Invalid file'); } };
+      fr.readAsText(file);
+    });
+    $('#resetBtn').addEventListener('click', () => { if (confirm('This will clear all local data. Continue?')) { localStorage.removeItem('roadmap20lpa'); state = structuredClone(DEFAULT_STATE); renderAll(); } });
+
+    // ====== POMODORO ======
+    let pom = { dur: 25 * 60, left: 25 * 60, timer: null, running: false };
+    function renderClock() { $('#clock').textContent = `${String(Math.floor(pom.left / 60)).padStart(2, '0')}:${String(pom.left % 60).padStart(2, '0')}`; }
+    function startPom() { if (pom.running) return; pom.running = true; pom.timer = setInterval(() => { pom.left--; if (pom.left <= 0) { clearInterval(pom.timer); pom.running = false; alert('Pomodoro complete! Take a 5 min break.'); pom.left = pom.dur; } renderClock(); }, 1000); }
+    function pausePom() { if (!pom.running) return; clearInterval(pom.timer); pom.running = false; }
+    function resetPom() { clearInterval(pom.timer); pom.running = false; pom.left = pom.dur; renderClock(); }
+    $('#startPom').addEventListener('click', startPom);
+    $('#pausePom').addEventListener('click', pausePom);
+    $('#resetPom').addEventListener('click', resetPom);
+    renderClock();
+
+    // ====== QUICK NOTES ======
+    $('#quickNote').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = e.target.value.trim(); if (!val) return; state.notes.push(val); e.target.value = ''; save(); renderAll();
+      }
+    });
+    $('#clearNotes').addEventListener('click', () => { if (confirm('Clear all quick notes?')) { state.notes = []; save(); renderAll(); } });
+
+    // ====== KANBAN ======
+    const kanbanEl = $('#kanban');
+    function renderKanban() {
+      ['todo', 'doing', 'done'].forEach(col => {
+        const wrap = kanbanEl.querySelector(`[data-col="${col}"] .colwrap`);
+        wrap.innerHTML = '';
+        (state.kanban[col] || []).forEach((c, i) => {
+          const card = document.createElement('div'); card.className = 'cardlet'; card.draggable = true; card.dataset.col = col; card.dataset.idx = i;
+          card.textContent = c; card.title = 'Drag between columns or double-click to edit';
+          card.addEventListener('dblclick', () => { const nv = prompt('Edit card', c); if (nv === null) return; if (nv.trim() === '') { state.kanban[col].splice(i, 1); } else { state.kanban[col][i] = nv.trim(); } save(); renderKanban(); });
+          wrap.appendChild(card);
+        })
+      })
+    }
+    $('#addKanban').addEventListener('click', () => {
+      const text = prompt('New card title'); if (!text) return; state.kanban.todo.push(text.trim()); save(); renderKanban();
+    });
+    kanbanEl.addEventListener('dragstart', (e) => { const card = e.target.closest('.cardlet'); if (!card) return; e.dataTransfer.setData('text/plain', JSON.stringify({ col: card.dataset.col, idx: Number(card.dataset.idx) })); });
+    $$('.column', kanbanEl).forEach(col => {
+      col.addEventListener('dragover', e => { e.preventDefault(); col.style.background = 'rgba(124,92,255,.15)'; });
+      col.addEventListener('dragleave', () => { col.style.background = 'rgba(255,255,255,.03)'; });
+      col.addEventListener('drop', e => {
+        e.preventDefault(); col.style.background = 'rgba(255,255,255,.03)';
+        const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+        const from = state.kanban[data.col]; const item = from.splice(data.idx, 1)[0];
+        const dest = state.kanban[col.dataset.col]; dest.push(item); save(); renderKanban();
+      })
+    })
+
+    // ====== INIT ======
+    renderAll();
+  </script>
+</body>
+
+</html>
