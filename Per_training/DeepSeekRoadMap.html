@@ -1,727 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDE Roadmap</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDE Roadmap 2026</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #3b82f6;
-            --accent: #10b981;
-            --light: #f3f4f6;
-            --dark: #1f2937;
-            --danger: #ef4444;
-            --success: #22c55e;
-            --warning: #f59e0b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--light);
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            margin-bottom: 20px;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .stat-box {
-            background: rgba(30, 41, 59, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            min-width: 150px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        .stat-box h3 {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 5px;
-        }
-        
+      :root {
+        --primary: #2563eb;
+        --secondary: #3b82f6;
+        --accent: #10b981;
+        --light: #f3f4f6;
+        --dark: #1f2937;
+        --danger: #ef4444;
+        --success: #22c55e;
+        --warning: #f59e0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: var(--light);
+        line-height: 1.6;
+        padding: 20px;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(30, 41, 59, 0.7);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #3b82f6, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #cbd5e1;
+        margin-bottom: 20px;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        background: rgba(30, 41, 59, 0.8);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        min-width: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-box h3 {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-bottom: 5px;
+      }
+
+      .roadmap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .month-card {
+        background: rgba(30, 41, 59, 0.8);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .month-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .month-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .month-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--secondary);
+      }
+
+      .progress-indicator {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .tasks {
+        margin-top: 15px;
+      }
+
+      .task {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 10px;
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 8px;
+        transition: background 0.2s ease;
+      }
+
+      .task:hover {
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .task input[type="checkbox"] {
+        margin-right: 12px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .task label {
+        flex: 1;
+        cursor: pointer;
+      }
+
+      .task.completed label {
+        text-decoration: line-through;
+        color: #94a3b8;
+      }
+
+      .resources {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .resources h4 {
+        margin-bottom: 10px;
+        color: var(--secondary);
+      }
+
+      .resources ul {
+        list-style-type: none;
+        padding-left: 5px;
+      }
+
+      .resources li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+      }
+
+      .resources li i {
+        margin-right: 10px;
+        color: var(--accent);
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      button:hover {
+        background: var(--secondary);
+        transform: translateY(-2px);
+      }
+
+      .export-btn {
+        background: var(--accent);
+      }
+
+      .export-btn:hover {
+        background: #0da271;
+      }
+
+      .reset-btn {
+        background: var(--danger);
+      }
+
+      .reset-btn:hover {
+        background: #dc2626;
+      }
+
+      .motivation {
+        text-align: center;
+        margin: 40px 0;
+        padding: 20px;
+        background: rgba(30, 41, 59, 0.7);
+        border-radius: 15px;
+      }
+
+      .motivation h2 {
+        margin-bottom: 15px;
+        color: var(--secondary);
+      }
+
+      .quote {
+        font-style: italic;
+        color: #cbd5e1;
+        margin: 15px 0;
+        font-size: 1.1rem;
+      }
+
+      .author {
+        text-align: right;
+        color: #94a3b8;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 20px;
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
         .roadmap {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+          grid-template-columns: 1fr;
         }
-        
-        .month-card {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .stats {
+          flex-direction: column;
+          align-items: center;
         }
-        
-        .month-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+
+        .stat-box {
+          width: 100%;
         }
-        
-        .month-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .month-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-        
-        .progress-indicator {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .tasks {
-            margin-top: 15px;
-        }
-        
-        .task {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 10px;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 8px;
-            transition: background 0.2s ease;
-        }
-        
-        .task:hover {
-            background: rgba(15, 23, 42, 0.8);
-        }
-        
-        .task input[type="checkbox"] {
-            margin-right: 12px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .task label {
-            flex: 1;
-            cursor: pointer;
-        }
-        
-        .task.completed label {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
-        
-        .resources {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .resources h4 {
-            margin-bottom: 10px;
-            color: var(--secondary);
-        }
-        
-        .resources ul {
-            list-style-type: none;
-            padding-left: 5px;
-        }
-        
-        .resources li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .resources li i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        button:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-        
-        .export-btn {
-            background: var(--accent);
-        }
-        
-        .export-btn:hover {
-            background: #0da271;
-        }
-        
-        .reset-btn {
-            background: var(--danger);
-        }
-        
-        .reset-btn:hover {
-            background: #dc2626;
-        }
-        
-        .motivation {
-            text-align: center;
-            margin: 40px 0;
-            padding: 20px;
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 15px;
-        }
-        
-        .motivation h2 {
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-        
-        .quote {
-            font-style: italic;
-            color: #cbd5e1;
-            margin: 15px 0;
-            font-size: 1.1rem;
-        }
-        
-        .author {
-            text-align: right;
-            color: #94a3b8;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .roadmap {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .stat-box {
-                width: 100%;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1>SDE Java Roadmap map</h1>
-            <p class="subtitle">A comprehensive 8-month plan to transition from ENOVIA developer to high-paying Java Microservices role</p>
-            
-            <div class="stats">
-                <div class="stat-box">
-                    <h3 id="total-tasks">0</h3>
-                    <p>Total Tasks</p>
-                </div>
-                <div class="stat-box">
-                    <h3 id="completed-tasks">0</h3>
-                    <p>Completed</p>
-                </div>
-                <div class="stat-box">
-                    <h3 id="completion-rate">0%</h3>
-                    <p>Completion Rate</p>
-                </div>
-                <div class="stat-box">
-                    <h3 id="days-left">240</h3>
-                    <p>Days Remaining</p>
-                </div>
-            </div>
-        </header>
-        
-        <div class="controls">
-            <button class="export-btn" onclick="exportProgress()">
-                <i class="fas fa-file-export"></i> Export Progress
-            </button>
-            <button class="reset-btn" onclick="resetProgress()">
-                <i class="fas fa-redo"></i> Reset Progress
-            </button>
+      <header>
+        <h1>SDE Java Roadmap map</h1>
+        <p class="subtitle">
+          A comprehensive 8-month plan to Java Microservices role
+        </p>
+
+        <div class="stats">
+          <div class="stat-box">
+            <h3 id="total-tasks">0</h3>
+            <p>Total Tasks</p>
+          </div>
+          <div class="stat-box">
+            <h3 id="completed-tasks">0</h3>
+            <p>Completed</p>
+          </div>
+          <div class="stat-box">
+            <h3 id="completion-rate">0%</h3>
+            <p>Completion Rate</p>
+          </div>
+          <div class="stat-box">
+            <h3 id="days-left">240</h3>
+            <p>Days Remaining</p>
+          </div>
         </div>
-        
-        <div class="roadmap" id="roadmap-container">
-            <!-- Months will be generated by JavaScript -->
-        </div>
-        
-        <div class="motivation">
-            <h2>Stay Motivated!</h2>
-            <p class="quote" id="motivational-quote">"The only way to do great work is to love what you do."</p>
-            <p class="author" id="quote-author">- Steve Jobs</p>
-        </div>
-        
-        <footer>
-            <p>© 2023 Java Developer Roadmap | Designed for ambitious developers</p>
-            <p>Remember: Consistency is key. Keep learning and coding every day!</p>
-        </footer>
+      </header>
+
+      <div class="controls">
+        <button class="export-btn" onclick="exportProgress()">
+          <i class="fas fa-file-export"></i> Export Progress
+        </button>
+        <button class="reset-btn" onclick="resetProgress()">
+          <i class="fas fa-redo"></i> Reset Progress
+        </button>
+      </div>
+
+      <div class="roadmap" id="roadmap-container">
+        <!-- Months will be generated by JavaScript -->
+      </div>
+
+      <div class="motivation">
+        <h2>Stay Motivated!</h2>
+        <p class="quote" id="motivational-quote">
+          "The only way to do great work is to love what you do."
+        </p>
+        <p class="author" id="quote-author">- Steve Jobs</p>
+      </div>
+
+      <footer>
+        <p>© 2023 Java Developer Roadmap | Designed for ambitious developers</p>
+        <p>Remember: Consistency is key. Keep learning and coding every day!</p>
+      </footer>
     </div>
 
     <script>
-        // Roadmap data
-        const roadmapData = [
-            {
-                month: 1,
-                title: "Java Virtuosity & Algorithmic Thinking",
-                tasks: [
-                    "Master Java 17+ features (Records, Sealed Classes)",
-                    "Practice Streams API & Optional for clean code",
-                    "Learn CompletableFuture for non-blocking calls",
-                    "Study ForkJoinPool, ReentrantLock, Atomic classes",
-                    "Solve 20+ LeetCode Easy problems"
-                ],
-                resources: [
-                    "Java Brains YouTube Channel",
-                    "Java 8 in Action Book",
-                    "VisualVM for profiling",
-                    "LeetCode practice platform"
-                ]
-            },
-            {
-                month: 2,
-                title: "Spring Boot Mastery & Testing",
-                tasks: [
-                    "Understand Application Context, Bean Lifecycle",
-                    "Learn AOP (Aspect-Oriented Programming)",
-                    "Write custom annotations",
-                    "Create BeanPostProcessor",
-                    "Achieve >80% test coverage with JUnit 5 + Mockito"
-                ],
-                resources: [
-                    "Spring Boot Official Documentation",
-                    "Baeldung Spring Tutorials",
-                    "Mockito Framework Guide",
-                    "JUnit 5 User Guide"
-                ]
-            },
-            {
-                month: 3,
-                title: "Microservices Architecture & Patterns",
-                tasks: [
-                    "Master OpenFeign with custom error decoders",
-                    "Implement Kafka producers/consumers",
-                    "Learn Kafka schema evolution with Avro",
-                    "Implement Circuit Breaker with Resilience4j",
-                    "Set up distributed tracing with Sleuth + Zipkin"
-                ],
-                resources: [
-                    "Spring Cloud Microservices Tutorials",
-                    "Apache Kafka Documentation",
-                    "Resilience4j Documentation",
-                    "OpenFeign GitHub Repository"
-                ]
-            },
-            {
-                month: 4,
-                title: "Database Mastery & Performance",
-                tasks: [
-                    "Learn PostgreSQL advanced indexing",
-                    "Practice query optimization with EXPLAIN ANALYZE",
-                    "Study MongoDB data modeling",
-                    "Implement Redis for leaderboards/session storage",
-                    "Build a service using CQRS pattern"
-                ],
-                resources: [
-                    "PostgreSQL Official Documentation",
-                    "MongoDB University Courses",
-                    "Redis.io Commands Reference",
-                    "CQRS Pattern Guide"
-                ]
-            },
-            {
-                month: 5,
-                title: "Cloud-Native & DevOps Lite",
-                tasks: [
-                    "Write optimized multi-stage Dockerfiles",
-                    "Deploy to local Minikube cluster",
-                    "Learn AWS services: EC2, ECR, EKS, RDS",
-                    "Build CI/CD pipeline with GitHub Actions",
-                    "Deploy project to AWS EKS"
-                ],
-                resources: [
-                    "Docker Official Documentation",
-                    "Kubernetes.io Tutorials",
-                    "AWS Training Resources",
-                    "GitHub Actions Guide"
-                ]
-            },
-            {
-                month: 6,
-                title: "The '20 LPA' Portfolio Project",
-                tasks: [
-                    "Develop 5-6 microservices project",
-                    "Integrate Spring Boot, Kafka, Redis, PostgreSQL",
-                    "Deploy to AWS EKS",
-                    "Set up monitoring with Prometheus + Grafana",
-                    "Ensure CI/CD pipeline is fully automated"
-                ],
-                resources: [
-                    "Spring Boot Project Examples",
-                    "Prometheus Documentation",
-                    "Grafana Tutorials",
-                    "AWS EKS User Guide"
-                ]
-            },
-            {
-                month: 7,
-                title: "Advanced DSA & System Design",
-                tasks: [
-                    "Solve 50+ LeetCode Easy problems",
-                    "Solve 100+ LeetCode Medium problems",
-                    "Solve 20+ LeetCode Hard problems",
-                    "Practice designing YouTube/Uber-like systems",
-                    "Learn capacity estimation (QPS, storage)"
-                ],
-                resources: [
-                    "LeetCode Top Interview Questions",
-                    "Gaurav Sen System Design YouTube",
-                    "Exponent System Design Course",
-                    "System Design Primer GitHub"
-                ]
-            },
-            {
-                month: 8,
-                title: "Interview Mastery & Negotiation",
-                tasks: [
-                    "Prepare 5-6 STAR stories from experience",
-                    "Tailor resume with metrics and keywords",
-                    "Update LinkedIn profile with new skills",
-                    "Give 5-10 mock interviews",
-                    "Practice negotiation scripts for 18-22 LPA"
-                ],
-                resources: [
-                    "STAR Method Interview Guide",
-                    "Tech Interview Handbook",
-                    "Pramp Mock Interview Platform",
-                    "Salary Negotiation Tips"
-                ]
-            }
-        ];
+      // Roadmap data
+      const roadmapData = [
+        {
+          month: 1,
+          title: "Java Virtuosity & Algorithmic Thinking",
+          tasks: [
+            "Master Java 17+ features (Records, Sealed Classes)",
+            "Practice Streams API & Optional for clean code",
+            "Learn CompletableFuture for non-blocking calls",
+            "Study ForkJoinPool, ReentrantLock, Atomic classes",
+            "Solve 20+ LeetCode Easy problems",
+          ],
+          resources: [
+            "Java Brains YouTube Channel",
+            "Java 8 in Action Book",
+            "VisualVM for profiling",
+            "LeetCode practice platform",
+          ],
+        },
+        {
+          month: 2,
+          title: "Spring Boot Mastery & Testing",
+          tasks: [
+            "Understand Application Context, Bean Lifecycle",
+            "Learn AOP (Aspect-Oriented Programming)",
+            "Write custom annotations",
+            "Create BeanPostProcessor",
+            "Achieve >80% test coverage with JUnit 5 + Mockito",
+          ],
+          resources: [
+            "Spring Boot Official Documentation",
+            "Baeldung Spring Tutorials",
+            "Mockito Framework Guide",
+            "JUnit 5 User Guide",
+          ],
+        },
+        {
+          month: 3,
+          title: "Microservices Architecture & Patterns",
+          tasks: [
+            "Master OpenFeign with custom error decoders",
+            "Implement Kafka producers/consumers",
+            "Learn Kafka schema evolution with Avro",
+            "Implement Circuit Breaker with Resilience4j",
+            "Set up distributed tracing with Sleuth + Zipkin",
+          ],
+          resources: [
+            "Spring Cloud Microservices Tutorials",
+            "Apache Kafka Documentation",
+            "Resilience4j Documentation",
+            "OpenFeign GitHub Repository",
+          ],
+        },
+        {
+          month: 4,
+          title: "Database Mastery & Performance",
+          tasks: [
+            "Learn PostgreSQL advanced indexing",
+            "Practice query optimization with EXPLAIN ANALYZE",
+            "Study MongoDB data modeling",
+            "Implement Redis for leaderboards/session storage",
+            "Build a service using CQRS pattern",
+          ],
+          resources: [
+            "PostgreSQL Official Documentation",
+            "MongoDB University Courses",
+            "Redis.io Commands Reference",
+            "CQRS Pattern Guide",
+          ],
+        },
+        {
+          month: 5,
+          title: "Cloud-Native & DevOps Lite",
+          tasks: [
+            "Write optimized multi-stage Dockerfiles",
+            "Deploy to local Minikube cluster",
+            "Learn AWS services: EC2, ECR, EKS, RDS",
+            "Build CI/CD pipeline with GitHub Actions",
+            "Deploy project to AWS EKS",
+          ],
+          resources: [
+            "Docker Official Documentation",
+            "Kubernetes.io Tutorials",
+            "AWS Training Resources",
+            "GitHub Actions Guide",
+          ],
+        },
+        {
+          month: 6,
+          title: "The '20 LPA' Portfolio Project",
+          tasks: [
+            "Develop 5-6 microservices project",
+            "Integrate Spring Boot, Kafka, Redis, PostgreSQL",
+            "Deploy to AWS EKS",
+            "Set up monitoring with Prometheus + Grafana",
+            "Ensure CI/CD pipeline is fully automated",
+          ],
+          resources: [
+            "Spring Boot Project Examples",
+            "Prometheus Documentation",
+            "Grafana Tutorials",
+            "AWS EKS User Guide",
+          ],
+        },
+        {
+          month: 7,
+          title: "Advanced DSA & System Design",
+          tasks: [
+            "Solve 50+ LeetCode Easy problems",
+            "Solve 100+ LeetCode Medium problems",
+            "Solve 20+ LeetCode Hard problems",
+            "Practice designing YouTube/Uber-like systems",
+            "Learn capacity estimation (QPS, storage)",
+          ],
+          resources: [
+            "LeetCode Top Interview Questions",
+            "Gaurav Sen System Design YouTube",
+            "Exponent System Design Course",
+            "System Design Primer GitHub",
+          ],
+        },
+        {
+          month: 8,
+          title: "Interview Mastery & Negotiation",
+          tasks: [
+            "Prepare 5-6 STAR stories from experience",
+            "Tailor resume with metrics and keywords",
+            "Update LinkedIn profile with new skills",
+            "Give 5-10 mock interviews",
+            "Practice negotiation scripts for 18-22 LPA",
+          ],
+          resources: [
+            "STAR Method Interview Guide",
+            "Tech Interview Handbook",
+            "Pramp Mock Interview Platform",
+            "Salary Negotiation Tips",
+          ],
+        },
+      ];
 
-        // Motivational quotes
-        const motivationalQuotes = [
-            {
-                quote: "The only way to do great work is to love what you do.",
-                author: "Steve Jobs"
-            },
-            {
-                quote: "The future belongs to those who learn more skills and combine them in creative ways.",
-                author: "Robert Greene"
-            },
-            {
-                quote: "The beautiful thing about learning is that no one can take it away from you.",
-                author: "B.B. King"
-            },
-            {
-                quote: "The expert in anything was once a beginner.",
-                author: "Helen Hayes"
-            },
-            {
-                quote: "Your career is your business. You are its CEO. Invest in yourself.",
-                author: "Andrew Yang"
-            }
-        ];
+      // Motivational quotes
+      const motivationalQuotes = [
+        {
+          quote: "The only way to do great work is to love what you do.",
+          author: "Steve Jobs",
+        },
+        {
+          quote:
+            "The future belongs to those who learn more skills and combine them in creative ways.",
+          author: "Robert Greene",
+        },
+        {
+          quote:
+            "The beautiful thing about learning is that no one can take it away from you.",
+          author: "B.B. King",
+        },
+        {
+          quote: "The expert in anything was once a beginner.",
+          author: "Helen Hayes",
+        },
+        {
+          quote:
+            "Your career is your business. You are its CEO. Invest in yourself.",
+          author: "Andrew Yang",
+        },
+      ];
 
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', function() {
-            renderRoadmap();
-            updateStats();
-            updateProgressBars();
-            showRandomQuote();
-            startDayCounter();
-        });
+      // Initialize the app
+      document.addEventListener("DOMContentLoaded", function () {
+        renderRoadmap();
+        updateStats();
+        updateProgressBars();
+        showRandomQuote();
+        startDayCounter();
+      });
 
-        // Render the roadmap
-        function renderRoadmap() {
-            const roadmapContainer = document.getElementById('roadmap-container');
-            
-            roadmapData.forEach(monthData => {
-                const monthCard = document.createElement('div');
-                monthCard.className = 'month-card';
-                
-                monthCard.innerHTML = `
+      // Render the roadmap
+      function renderRoadmap() {
+        const roadmapContainer = document.getElementById("roadmap-container");
+
+        roadmapData.forEach((monthData) => {
+          const monthCard = document.createElement("div");
+          monthCard.className = "month-card";
+
+          monthCard.innerHTML = `
                     <div class="month-header">
-                        <h2 class="month-title">Month ${monthData.month}: ${monthData.title}</h2>
-                        <span class="month-status">0/${monthData.tasks.length}</span>
+                        <h2 class="month-title">Month ${monthData.month}: ${
+            monthData.title
+          }</h2>
+                        <span class="month-status">0/${
+                          monthData.tasks.length
+                        }</span>
                     </div>
                     <div class="progress-indicator">
-                        <div class="progress-bar" id="progress-month-${monthData.month}"></div>
+                        <div class="progress-bar" id="progress-month-${
+                          monthData.month
+                        }"></div>
                     </div>
                     <div class="tasks">
-                        ${monthData.tasks.map((task, index) => `
+                        ${monthData.tasks
+                          .map(
+                            (task, index) => `
                             <div class="task" id="month-${monthData.month}-task-${index}">
                                 <input type="checkbox" id="checkbox-${monthData.month}-${index}" onchange="updateTask(${monthData.month}, ${index})">
                                 <label for="checkbox-${monthData.month}-${index}">${task}</label>
                             </div>
-                        `).join('')}
+                        `
+                          )
+                          .join("")}
                     </div>
                     <div class="resources">
                         <h4>Resources:</h4>
                         <ul>
-                            ${monthData.resources.map(resource => `
+                            ${monthData.resources
+                              .map(
+                                (resource) => `
                                 <li><i class="fas fa-book-open"></i> ${resource}</li>
-                            `).join('')}
+                            `
+                              )
+                              .join("")}
                         </ul>
                     </div>
                 `;
-                
-                roadmapContainer.appendChild(monthCard);
-                
-                // Load saved state for this month
-                loadMonthState(monthData.month, monthData.tasks.length);
-            });
-        }
 
-        // Load saved state for a month
-        function loadMonthState(month, taskCount) {
-            for (let i = 0; i < taskCount; i++) {
-                const isCompleted = localStorage.getItem(`month-${month}-task-${i}`) === 'true';
-                const checkbox = document.getElementById(`checkbox-${month}-${i}`);
-                const taskElement = document.getElementById(`month-${month}-task-${i}`);
-                
-                if (checkbox && taskElement) {
-                    checkbox.checked = isCompleted;
-                    if (isCompleted) {
-                        taskElement.classList.add('completed');
-                    }
-                }
+          roadmapContainer.appendChild(monthCard);
+
+          // Load saved state for this month
+          loadMonthState(monthData.month, monthData.tasks.length);
+        });
+      }
+
+      // Load saved state for a month
+      function loadMonthState(month, taskCount) {
+        for (let i = 0; i < taskCount; i++) {
+          const isCompleted =
+            localStorage.getItem(`month-${month}-task-${i}`) === "true";
+          const checkbox = document.getElementById(`checkbox-${month}-${i}`);
+          const taskElement = document.getElementById(
+            `month-${month}-task-${i}`
+          );
+
+          if (checkbox && taskElement) {
+            checkbox.checked = isCompleted;
+            if (isCompleted) {
+              taskElement.classList.add("completed");
             }
-            updateMonthStatus(month, taskCount);
+          }
+        }
+        updateMonthStatus(month, taskCount);
+      }
+
+      // Update task status
+      function updateTask(month, taskIndex) {
+        const checkbox = document.getElementById(
+          `checkbox-${month}-${taskIndex}`
+        );
+        const taskElement = document.getElementById(
+          `month-${month}-task-${taskIndex}`
+        );
+
+        if (checkbox.checked) {
+          taskElement.classList.add("completed");
+          localStorage.setItem(`month-${month}-task-${taskIndex}`, "true");
+        } else {
+          taskElement.classList.remove("completed");
+          localStorage.setItem(`month-${month}-task-${taskIndex}`, "false");
         }
 
-        // Update task status
-        function updateTask(month, taskIndex) {
-            const checkbox = document.getElementById(`checkbox-${month}-${taskIndex}`);
-            const taskElement = document.getElementById(`month-${month}-task-${taskIndex}`);
-            
-            if (checkbox.checked) {
-                taskElement.classList.add('completed');
-                localStorage.setItem(`month-${month}-task-${taskIndex}`, 'true');
-            } else {
-                taskElement.classList.remove('completed');
-                localStorage.setItem(`month-${month}-task-${taskIndex}`, 'false');
+        updateMonthStatus(month, roadmapData[month - 1].tasks.length);
+        updateStats();
+        updateProgressBars();
+      }
+
+      // Update month status
+      function updateMonthStatus(month, taskCount) {
+        let completed = 0;
+
+        for (let i = 0; i < taskCount; i++) {
+          if (localStorage.getItem(`month-${month}-task-${i}`) === "true") {
+            completed++;
+          }
+        }
+
+        const statusElement = document.querySelector(
+          `#roadmap-container .month-card:nth-child(${month}) .month-status`
+        );
+        if (statusElement) {
+          statusElement.textContent = `${completed}/${taskCount}`;
+        }
+      }
+
+      // Update statistics
+      function updateStats() {
+        let totalTasks = 0;
+        let completedTasks = 0;
+
+        roadmapData.forEach((monthData) => {
+          totalTasks += monthData.tasks.length;
+
+          for (let i = 0; i < monthData.tasks.length; i++) {
+            if (
+              localStorage.getItem(`month-${monthData.month}-task-${i}`) ===
+              "true"
+            ) {
+              completedTasks++;
             }
-            
-            updateMonthStatus(month, roadmapData[month-1].tasks.length);
-            updateStats();
-            updateProgressBars();
-        }
+          }
+        });
 
-        // Update month status
-        function updateMonthStatus(month, taskCount) {
-            let completed = 0;
-            
-            for (let i = 0; i < taskCount; i++) {
-                if (localStorage.getItem(`month-${month}-task-${i}`) === 'true') {
-                    completed++;
-                }
+        const completionRate =
+          totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+        document.getElementById("total-tasks").textContent = totalTasks;
+        document.getElementById("completed-tasks").textContent = completedTasks;
+        document.getElementById(
+          "completion-rate"
+        ).textContent = `${completionRate}%`;
+      }
+
+      // Update progress bars
+      function updateProgressBars() {
+        roadmapData.forEach((monthData) => {
+          const taskCount = monthData.tasks.length;
+          let completed = 0;
+
+          for (let i = 0; i < taskCount; i++) {
+            if (
+              localStorage.getItem(`month-${monthData.month}-task-${i}`) ===
+              "true"
+            ) {
+              completed++;
             }
-            
-            const statusElement = document.querySelector(`#roadmap-container .month-card:nth-child(${month}) .month-status`);
-            if (statusElement) {
-                statusElement.textContent = `${completed}/${taskCount}`;
+          }
+
+          const progress = taskCount > 0 ? (completed / taskCount) * 100 : 0;
+          const progressBar = document.getElementById(
+            `progress-month-${monthData.month}`
+          );
+
+          if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+          }
+        });
+      }
+
+      // Show random motivational quote
+      function showRandomQuote() {
+        const randomIndex = Math.floor(
+          Math.random() * motivationalQuotes.length
+        );
+        const quote = motivationalQuotes[randomIndex];
+
+        document.getElementById(
+          "motivational-quote"
+        ).textContent = `"${quote.quote}"`;
+        document.getElementById(
+          "quote-author"
+        ).textContent = `- ${quote.author}`;
+      }
+
+      // Start day counter
+      function startDayCounter() {
+        const startDate = new Date();
+        const endDate = new Date();
+        endDate.setMonth(startDate.getMonth() + 8);
+
+        // Calculate days left
+        const daysLeft = Math.ceil(
+          (endDate - startDate) / (1000 * 60 * 60 * 24)
+        );
+        document.getElementById("days-left").textContent = daysLeft;
+
+        // Update every day
+        setInterval(() => {
+          const now = new Date();
+          const newDaysLeft = Math.ceil(
+            (endDate - now) / (1000 * 60 * 60 * 24)
+          );
+          document.getElementById("days-left").textContent =
+            newDaysLeft > 0 ? newDaysLeft : 0;
+        }, 86400000); // Update every day
+      }
+
+      // Export progress
+      function exportProgress() {
+        let exportData = "8-Month Java Developer Roadmap Progress\n\n";
+        exportData += `Export Date: ${new Date().toLocaleDateString()}\n`;
+        exportData += `Total Completion: ${
+          document.getElementById("completion-rate").textContent
+        }\n\n`;
+
+        roadmapData.forEach((monthData) => {
+          exportData += `Month ${monthData.month}: ${monthData.title}\n`;
+
+          for (let i = 0; i < monthData.tasks.length; i++) {
+            const isCompleted =
+              localStorage.getItem(`month-${monthData.month}-task-${i}`) ===
+              "true";
+            exportData += `[${isCompleted ? "X" : " "}] ${
+              monthData.tasks[i]
+            }\n`;
+          }
+
+          exportData += "\n";
+        });
+
+        const blob = new Blob([exportData], { type: "text/plain" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "java-developer-roadmap-progress.txt";
+        a.click();
+      }
+
+      // Reset progress
+      function resetProgress() {
+        if (
+          confirm(
+            "Are you sure you want to reset all progress? This cannot be undone."
+          )
+        ) {
+          roadmapData.forEach((monthData) => {
+            for (let i = 0; i < monthData.tasks.length; i++) {
+              localStorage.removeItem(`month-${monthData.month}-task-${i}`);
+              const checkbox = document.getElementById(
+                `checkbox-${monthData.month}-${i}`
+              );
+              const taskElement = document.getElementById(
+                `month-${monthData.month}-task-${i}`
+              );
+
+              if (checkbox && taskElement) {
+                checkbox.checked = false;
+                taskElement.classList.remove("completed");
+              }
             }
-        }
+            updateMonthStatus(monthData.month, monthData.tasks.length);
+          });
 
-        // Update statistics
-        function updateStats() {
-            let totalTasks = 0;
-            let completedTasks = 0;
-            
-            roadmapData.forEach(monthData => {
-                totalTasks += monthData.tasks.length;
-                
-                for (let i = 0; i < monthData.tasks.length; i++) {
-                    if (localStorage.getItem(`month-${monthData.month}-task-${i}`) === 'true') {
-                        completedTasks++;
-                    }
-                }
-            });
-            
-            const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-            
-            document.getElementById('total-tasks').textContent = totalTasks;
-            document.getElementById('completed-tasks').textContent = completedTasks;
-            document.getElementById('completion-rate').textContent = `${completionRate}%`;
+          updateStats();
+          updateProgressBars();
+          alert("All progress has been reset.");
         }
-
-        // Update progress bars
-        function updateProgressBars() {
-            roadmapData.forEach(monthData => {
-                const taskCount = monthData.tasks.length;
-                let completed = 0;
-                
-                for (let i = 0; i < taskCount; i++) {
-                    if (localStorage.getItem(`month-${monthData.month}-task-${i}`) === 'true') {
-                        completed++;
-                    }
-                }
-                
-                const progress = taskCount > 0 ? (completed / taskCount) * 100 : 0;
-                const progressBar = document.getElementById(`progress-month-${monthData.month}`);
-                
-                if (progressBar) {
-                    progressBar.style.width = `${progress}%`;
-                }
-            });
-        }
-
-        // Show random motivational quote
-        function showRandomQuote() {
-            const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-            const quote = motivationalQuotes[randomIndex];
-            
-            document.getElementById('motivational-quote').textContent = `"${quote.quote}"`;
-            document.getElementById('quote-author').textContent = `- ${quote.author}`;
-        }
-
-        // Start day counter
-        function startDayCounter() {
-            const startDate = new Date();
-            const endDate = new Date();
-            endDate.setMonth(startDate.getMonth() + 8);
-            
-            // Calculate days left
-            const daysLeft = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-            document.getElementById('days-left').textContent = daysLeft;
-            
-            // Update every day
-            setInterval(() => {
-                const now = new Date();
-                const newDaysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
-                document.getElementById('days-left').textContent = newDaysLeft > 0 ? newDaysLeft : 0;
-            }, 86400000); // Update every day
-        }
-
-        // Export progress
-        function exportProgress() {
-            let exportData = "8-Month Java Developer Roadmap Progress\n\n";
-            exportData += `Export Date: ${new Date().toLocaleDateString()}\n`;
-            exportData += `Total Completion: ${document.getElementById('completion-rate').textContent}\n\n`;
-            
-            roadmapData.forEach(monthData => {
-                exportData += `Month ${monthData.month}: ${monthData.title}\n`;
-                
-                for (let i = 0; i < monthData.tasks.length; i++) {
-                    const isCompleted = localStorage.getItem(`month-${monthData.month}-task-${i}`) === 'true';
-                    exportData += `[${isCompleted ? 'X' : ' '}] ${monthData.tasks[i]}\n`;
-                }
-                
-                exportData += "\n";
-            });
-            
-            const blob = new Blob([exportData], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'java-developer-roadmap-progress.txt';
-            a.click();
-        }
-
-        // Reset progress
-        function resetProgress() {
-            if (confirm("Are you sure you want to reset all progress? This cannot be undone.")) {
-                roadmapData.forEach(monthData => {
-                    for (let i = 0; i < monthData.tasks.length; i++) {
-                        localStorage.removeItem(`month-${monthData.month}-task-${i}`);
-                        const checkbox = document.getElementById(`checkbox-${monthData.month}-${i}`);
-                        const taskElement = document.getElementById(`month-${monthData.month}-task-${i}`);
-                        
-                        if (checkbox && taskElement) {
-                            checkbox.checked = false;
-                            taskElement.classList.remove('completed');
-                        }
-                    }
-                    updateMonthStatus(monthData.month, monthData.tasks.length);
-                });
-                
-                updateStats();
-                updateProgressBars();
-                alert("All progress has been reset.");
-            }
-        }
+      }
     </script>
-</body>
+  </body>
 </html>
